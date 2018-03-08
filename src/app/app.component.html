@@ -31,7 +31,7 @@
             <button class="btn btn-xs btn-primary" (click)="myFunc()">New Game</button>
             <div *ngIf="masterNumber;else other_content">
                 <form>
-                    <input type="number" class="number" name="guess" placeholder="make a guess.." [(ngModel)]="guess" [ngModelOptions]="{standalone: true}">
+                    <input type="number" [disabled]="won" class="number" name="guess" placeholder="make a guess.." [(ngModel)]="guess" [ngModelOptions]="{standalone: true}">
                     <button (click)="makeGuess(guess)" class="btn btn-primary">Submit</button>
                 </form>
             </div>

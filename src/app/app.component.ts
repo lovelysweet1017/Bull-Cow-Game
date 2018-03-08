@@ -12,6 +12,7 @@ export class AppComponent {
   result: Object = { guess: null, b: null, c: null };
   history: Array<Object> = [];
   guess: Number;
+  won: Boolean = false;
   constructor(private _dataService: DataService) {
     this._dataService.getUsers()
       .subscribe(res => this.users = res);
@@ -25,6 +26,7 @@ export class AppComponent {
         this.history = [];
         this.result = { guess: null, b: null, c: null };
         this.guess = undefined;
+        this.won = false;
       },
       err => console.error(err),
       () => console.log('started new game')
@@ -40,7 +42,10 @@ export class AppComponent {
           .subscribe(
           data => {
             this.result = data.json();
-            this.history.push(data.json())
+            this.history.push(data.json());
+            if (data.json().b === 3) {
+              this.won = true;
+            }
           },
           err => console.error(err),
           () => console.log('guessed once'));

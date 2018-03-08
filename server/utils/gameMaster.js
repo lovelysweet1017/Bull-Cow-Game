@@ -7,4 +7,11 @@ function shuffle(o) {
     return o;
 }
 
+var checkGuess = function (guess) {
+    var masterNumber = global.Number;
+    var c = 0;
+    var b = 0;
+    var m = (masterNumber + '').split('');
+    var g = (guess + '').split('');
+}
 exports.random4Digit = random4Digit;
