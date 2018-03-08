@@ -1,5 +1,38 @@
-<h1>Number: {{masterNumber}}{{result}}</h1>
+<!-- <h1>Number: {{masterNumber}}{{result}}</h1> -->
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <b>History</b>
+                </li>
+                <li class="list-group-item" *ngFor="let g of history">{{g.guess}} B{{g.b}} C{{g.c}}</li>
+            </ul>
+        </div>
+        <div class="col-md-5">
+            <table class="table table-bordered table-condensed">
+                <tr>
+                    <th><b>Bull</b></th>
+                    <th><b>Cow</b></th>
+                </tr>
+                <tr>
+                    <td>{{result.b}}</td>
+                    <td>{{result.c}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-xs btn-primary" (click)="myFunc()">New Game</button>
+            <div *ngIf="masterNumber;else other_content">
+                Make a guess
+            </div>
+            <ng-template #other_content>Please start a new game</ng-template>
+            <form>
+                <input type="number" class="number" name="guess" placeholder="guess.." [(ngModel)]="guess" [ngModelOptions]="{standalone: true}">
+                <button (click)="makeGuess(guess)" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
 
-<!-- <ul>
-    <li *ngFor="let user of users">{{user.name}}</li>
-</ul> -->
+</div>
