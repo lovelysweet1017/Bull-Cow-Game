@@ -20,7 +20,12 @@ export class AppComponent {
     console.log("function called");
     this._dataService.getNewNumber()
       .subscribe(
-      data => { this.masterNumber = data.json().num; },
+      data => {
+        this.masterNumber = data.json().num;
+        this.history = [];
+        this.result = { guess: null, b: null, c: null };
+        this.guess = undefined;
+      },
       err => console.error(err),
       () => console.log('started new game')
       );
