@@ -1,13 +1,13 @@
 <br>
 <ngx-alerts></ngx-alerts>
 <div class="container">
-    <div class="card bg-dark text-white">
+    <div class="card full-card bg-dark text-white">
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6 text-right">
                     <h3>Bulls & Cows</h3>
                 </div>
-                <div class="col-md-3 text-right">
+                <div *ngIf="!won && !lost" class="col-md-3 text-right">
                     <button class="btn btn-xs btn-primary pull-right" (click)="myFunc()">New Game</button>
                 </div>
                 <div class="col-md-3 text-right">
@@ -32,7 +32,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let g of history">
-                                <td>{{g.guess}} B{{g.b}} C{{g.c}}</td>
+                                <td>{{g.guess}} Bulls: {{g.b}} Cows: {{g.c}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <div *ngIf="masterNumber;else other_content">
+                        <div *ngIf="masterNumber">
                             <form class="form-inline">
                                 <div class="col-md-5">
                                     <input type="number" [disabled]="won || lost" class="number" name="guess" placeholder="make a guess.." [(ngModel)]="guess"
@@ -67,7 +67,27 @@
                             </form>
                         </div>
                     </div>
-                    <ng-template #other_content>No ongoing game</ng-template>
+                    <div class="row">
+                        <div *ngIf="won || lost" class="card bg-dark text-center" style="width: 80%">
+                            <div *ngIf="won" class="card-header text-success">
+                                <h3>
+                                    <b>Congrats!</b>
+                                </h3>
+                            </div>
+                            <div *ngIf="lost" class="card-header text-danger">
+                                <h3>
+                                    <b>Game Over!</b>
+                                </h3>
+                            </div>
+                            <div class="card-body text-white">
+                                <h5 class="card-title">Play Again?</h5>
+                                <p class="card-text">
+                                    Start New Game
+                                </p>
+                                <button class="btn btn-xs btn-primary" (click)="myFunc()">Start</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -59,4 +59,9 @@ router.post('/check', (req, res) => {
     res.json({ guess: req.body.guess, b: result.Bull, c: result.Cow });
 });
 
+//show result
+router.get('/show', (req, res) => {
+    res.json({ ans: global.number });
+});
+
 module.exports = router;

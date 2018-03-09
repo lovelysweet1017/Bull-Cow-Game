@@ -25,5 +25,8 @@ export class DataService {
     let body = JSON.stringify({ guess: num });
     return this._http.post('/api/check', body, httpOptions);
   }
+  show() {
+    return this._http.get('/api/check');
+  }
 
 }

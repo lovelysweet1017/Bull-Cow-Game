@@ -16,6 +16,7 @@ export class AppComponent {
   won: Boolean = false;
   lost: Boolean = false;
   tries: any = 0;
+  ans: any = 0;
   constructor(private _dataService: DataService, private alertService: AlertService) {
     this._dataService.getUsers()
       .subscribe(res => this.users = res);
@@ -54,10 +55,20 @@ export class AppComponent {
               console.log('You Won');
               this.alertService.success('Congrats! You Won :)');
               this.won = true;
+              this.masterNumber = null;
             } else if (this.tries == 0 && data.json().b !== 3) {
               console.log('Game Over');
               this.alertService.danger('Sorry! You Lost :(');
               this.lost = true;
+              this.masterNumber = null;
+              this._dataService.show()
+                .subscribe(
+                data => {
+                  this.ans = data.json().ans;
+                },
+                err => console.error(err),
+                () => console.log('reveal ans')
+                );
             }
           },
           err => console.error(err),
