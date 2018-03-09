@@ -8,10 +8,20 @@ function shuffle(o) {
 }
 
 var checkGuess = function (guess) {
-    var masterNumber = global.Number;
-    var c = 0;
-    var b = 0;
-    var m = (masterNumber + '').split('');
-    var g = (guess + '').split('');
+    var master = global.number;
+    console.log('Mater check',global.number,guess)
+    var masterArr = (master + '').split('');
+    var guessArr = (guess + '').split('');
+    var b = 0, c = 0;
+    guessArr.forEach(element => {
+        var index = guessArr.indexOf(element);
+        if (masterArr[index] == element) {
+            b++;
+        } else if (masterArr[index] !== element && masterArr.indexOf(element) > -1) {
+            c++;
+        }
+    });
+    return { Bull: b, Cow: c };
 }
 exports.random3Digit = random3Digit;
+exports.checkGuess = checkGuess;

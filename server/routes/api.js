@@ -54,7 +54,9 @@ router.get('/newGame', (req, res) => {
 //check guess
 router.post('/check', (req, res) => {
     console.log(req.body);
-    res.json({ guess: req.body.guess, b: 1, c: 1 });
+    let result = gameMaster.checkGuess(req.body.guess);
+    console.log('result', result);
+    res.json({ guess: req.body.guess, b: result.Bull, c: result.Cow });
 });
 
 module.exports = router;

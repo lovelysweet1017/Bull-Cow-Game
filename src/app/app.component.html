@@ -1,48 +1,75 @@
-<!-- <h1>Number: {{masterNumber}}{{result}}</h1> -->
 <br>
-<br>
+<ngx-alerts></ngx-alerts>
 <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <b>History</b>
-                </li>
-                <li class="list-group-item" *ngFor="let g of history">{{g.guess}} B{{g.b}} C{{g.c}}</li>
-            </ul>
-        </div>
-        <div class="col-md-5">
-            <table class="table table-bordered table-condensed">
-                <tr>
-                    <th>
-                        <b>Bull</b>
-                    </th>
-                    <th>
-                        <b>Cow</b>
-                    </th>
-                </tr>
-                <tr>
-                    <td>{{result.b}}</td>
-                    <td>{{result.c}}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-xs btn-primary" (click)="myFunc()">New Game</button>
-            <br>
-            <br>
-            <div *ngIf="masterNumber;else other_content">
-                <p>Tries Left:{{tries}}</p>
-                <br>
-                <form>
-                    <input type="number" [disabled]="won || lost" class="number" name="guess" placeholder="make a guess.." [(ngModel)]="guess"
-                        [ngModelOptions]="{standalone: true}">
-                    <button (click)="makeGuess(guess)" [disabled]="won || lost" class="btn btn-primary">Submit</button>
-                </form>
+    <div class="card bg-dark text-white">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 text-right">
+                    <h3>Bulls & Cows</h3>
+                </div>
+                <div class="col-md-3 text-right">
+                    <button class="btn btn-xs btn-primary pull-right" (click)="myFunc()">New Game</button>
+                </div>
+                <div class="col-md-3 text-right">
+                    <div *ngIf="masterNumber">
+                        <b>Tries Left:
+                            <kbd>{{tries}}</kbd>
+                        </b>
+                    </div>
+                </div>
             </div>
-            <ng-template #other_content>No ongoing game</ng-template>
-
+        </div>
+        <div class="card-block">
+            <br>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3 col-md-offset-1">
+                    <table class="table table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>History</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let g of history">
+                                <td>{{g.guess}} B{{g.b}} C{{g.c}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <table class="table table-bordered table-sm">
+                        <thead class="thead-light text-center">
+                            <tr>
+                                <th>Bull</th>
+                                <th>Cow</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <tr>
+                                <td>{{result.b || '-'}}</td>
+                                <td>{{result.c || '-'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div *ngIf="masterNumber;else other_content">
+                            <form class="form-inline">
+                                <div class="col-md-5">
+                                    <input type="number" [disabled]="won || lost" class="number" name="guess" placeholder="make a guess.." [(ngModel)]="guess"
+                                        [ngModelOptions]="{standalone: true}">
+                                </div>
+                                <div class="col-md-5">
+                                    <button (click)="makeGuess(guess)" [disabled]="won || lost" class="btn btn-xs btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <ng-template #other_content>No ongoing game</ng-template>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>

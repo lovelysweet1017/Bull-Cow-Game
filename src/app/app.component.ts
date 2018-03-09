@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from './services/data.service';
+import { AlertService } from 'ngx-alerts';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent {
   won: Boolean = false;
   lost: Boolean = false;
   tries: any = 0;
-  constructor(private _dataService: DataService) {
+  constructor(private _dataService: DataService, private alertService: AlertService) {
     this._dataService.getUsers()
       .subscribe(res => this.users = res);
   }
@@ -29,6 +30,7 @@ export class AppComponent {
         this.result = { guess: null, b: null, c: null };
         this.guess = undefined;
         this.won = false;
+        this.lost = false;
         this.tries = 10;
       },
       err => console.error(err),
@@ -40,6 +42,7 @@ export class AppComponent {
     if (this.masterNumber) {
       if ((this.guess === undefined) || (this.guess + '').length !== 3 || this.hasRepeatingdigits(this.guess) || (this.guess + '').indexOf('0') > -1) {
         console.log('Invalid Guess');
+        this.alertService.warning('Invalid Guess');
       } else {
         this._dataService.check(this.guess)
           .subscribe(
@@ -49,9 +52,11 @@ export class AppComponent {
             this.tries--;
             if (data.json().b === 3) {
               console.log('You Won');
+              this.alertService.success('Congrats! You Won :)');
               this.won = true;
             } else if (this.tries == 0 && data.json().b !== 3) {
               console.log('Game Over');
+              this.alertService.danger('Sorry! You Lost :(');
               this.lost = true;
             }
           },
