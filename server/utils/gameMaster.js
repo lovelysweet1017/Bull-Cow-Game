@@ -1,4 +1,4 @@
-var random4Digit = function () {
+var random3Digit = function () {
     return shuffle("123456789".split('')).join('').substring(0, 3);
 }
 
@@ -14,4 +14,4 @@ var checkGuess = function (guess) {
     var m = (masterNumber + '').split('');
     var g = (guess + '').split('');
 }
-exports.random4Digit = random4Digit;
+exports.random3Digit = random3Digit;

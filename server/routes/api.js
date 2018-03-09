@@ -46,7 +46,7 @@ router.get('/users', (req, res) => {
 
 //create new game starter number
 router.get('/newGame', (req, res) => {
-    global.number = gameMaster.random4Digit();
+    global.number = gameMaster.random3Digit();
     console.log('New Game:', global.number)
     res.json({ num: global.number });
 });
@@ -54,7 +54,7 @@ router.get('/newGame', (req, res) => {
 //check guess
 router.post('/check', (req, res) => {
     console.log(req.body);
-    res.json({guess:req.body.guess,b:1,c:1});
+    res.json({ guess: req.body.guess, b: 1, c: 1 });
 });
 
 module.exports = router;

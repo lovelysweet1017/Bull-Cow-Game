@@ -29,10 +29,15 @@
         </div>
         <div class="col-md-3">
             <button class="btn btn-xs btn-primary" (click)="myFunc()">New Game</button>
+            <br>
+            <br>
             <div *ngIf="masterNumber;else other_content">
+                <p>Tries Left:{{tries}}</p>
+                <br>
                 <form>
-                    <input type="number" [disabled]="won" class="number" name="guess" placeholder="make a guess.." [(ngModel)]="guess" [ngModelOptions]="{standalone: true}">
-                    <button (click)="makeGuess(guess)" class="btn btn-primary">Submit</button>
+                    <input type="number" [disabled]="won || lost" class="number" name="guess" placeholder="make a guess.." [(ngModel)]="guess"
+                        [ngModelOptions]="{standalone: true}">
+                    <button (click)="makeGuess(guess)" [disabled]="won || lost" class="btn btn-primary">Submit</button>
                 </form>
             </div>
             <ng-template #other_content>No ongoing game</ng-template>
