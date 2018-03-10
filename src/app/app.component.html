@@ -7,10 +7,13 @@
                 <div class="col-md-6 text-right">
                     <h3>Bulls & Cows</h3>
                 </div>
-                <div *ngIf="!won && !lost" class="col-md-3 text-right">
-                    <button class="btn btn-xs btn-primary pull-right" (click)="myFunc()">New Game</button>
+                <div *ngIf="!won && !lost" class="col-md-2 text-right">
+                    <button class="btn btn-xs btn-primary pull-right" (click)="myFunc()">New Player Game</button>
                 </div>
-                <div class="col-md-3 text-right">
+                <div *ngIf="!won && !lost" class="col-md-2 text-right">
+                    <button class="btn btn-xs btn-primary pull-right" (click)="startMaster()">New Master Game</button>
+                </div>
+                <div class="col-md-2 text-right">
                     <div *ngIf="masterNumber">
                         <b>Tries Left:
                             <kbd>{{tries}}</kbd>
@@ -38,7 +41,7 @@
                     </table>
                 </div>
                 <div class="col-md-4">
-                    <table class="table table-bordered table-sm">
+                    <table *ngIf="!playMaster" class="table table-bordered table-sm">
                         <thead class="thead-light text-center">
                             <tr>
                                 <th>Bull</th>
@@ -52,10 +55,23 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div *ngIf="playMaster" class="card bg-dark text-center" style="width: 80%">
+                        <div class="card-header text-Primary">
+                            <h3>
+                                <b>CPU Guess</b>
+                            </h3>
+                        </div>
+                        <div class="card-body text-white">
+                            <h5 class="card-title">{{cpuGuess}}</h5>
+                            <p class="card-text">
+                                Please tell me Bulls and Cowss
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <div *ngIf="masterNumber">
+                        <div *ngIf="masterNumber && !playMaster">
                             <form class="form-inline">
                                 <div class="col-md-5">
                                     <input type="number" [disabled]="won || lost" class="number" name="guess" placeholder="make a guess.." [(ngModel)]="guess"
@@ -66,17 +82,36 @@
                                 </div>
                             </form>
                         </div>
+                        <div *ngIf="playMaster">
+                            <form class="form-inline">
+                                <div class="col-md-4">Bull
+                                    <input type="number" [disabled]="won || lost" min="1" max="3" class="number" name="bull" [(ngModel)]="bull" [ngModelOptions]="{standalone: true}">
+                                </div>
+                                <div class="col-md-4">Cow
+                                    <input type="number" [disabled]="won || lost" min="1" max="3" class="number" name="cow" [(ngModel)]="cow" [ngModelOptions]="{standalone: true}">
+                                </div>
+                                <div class="col-md-4">
+                                    <button (click)="getGuess(bull,cow)" [disabled]="won || lost" class="btn btn-xs btn-primary">Get Guess</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="row">
                         <div *ngIf="won || lost" class="card bg-dark text-center" style="width: 80%">
-                            <div *ngIf="won" class="card-header text-success">
+                            <div *ngIf="won && !playMaster" class="card-header text-success">
                                 <h3>
                                     <b>Congrats!</b>
+                                </h3>
+                            </div>
+                            <div *ngIf="won && playMaster" class="card-header text-success">
+                                <h3>
+                                    <b>Ain't I Smart! :)</b>
                                 </h3>
                             </div>
                             <div *ngIf="lost" class="card-header text-danger">
                                 <h3>
                                     <b>Game Over!</b>
+                                    Correct Number was {{ans}}
                                 </h3>
                             </div>
                             <div class="card-body text-white">
@@ -84,7 +119,8 @@
                                 <p class="card-text">
                                     Start New Game
                                 </p>
-                                <button class="btn btn-xs btn-primary" (click)="myFunc()">Start</button>
+                                <button class="btn btn-xs btn-primary" (click)="myFunc()">Player</button>
+                                <button class="btn btn-xs btn-primary" (click)="startMaster()">Master</button>
                             </div>
                         </div>
                     </div>
