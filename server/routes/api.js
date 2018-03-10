@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
+const gameMaster = require('../utils/gameMaster')
+const gamePlayer = require('../utils/gamePlayer')
 
 //Connection
 const connection = (closure) => {
@@ -45,14 +47,45 @@ router.get('/users', (req, res) => {
 
 //create new game starter number
 router.get('/newGame', (req, res) => {
-    global.number = 123;
+    global.number = gameMaster.random3Digit();
+    console.log('New Game:', global.number)
     res.json({ num: global.number });
 });
 
 //check guess
 router.post('/check', (req, res) => {
     console.log(req.body);
-    res.json(req.body);
+    let result = gameMaster.checkGuess(req.body.guess);
+    console.log('result', result);
+    res.json({ guess: req.body.guess, b: result.Bull, c: result.Cow });
+});
+
+//show result
+router.get('/show', (req, res) => {
+    console.log('ans was', global.number);
+    res.json({ ans: global.number });
+});
+
+//first random guess
+router.get('/firstGuess', (req, res) => {
+    global.availableDigits = '123456789';
+    global.usedNumbers = [];
+    global.fixedDigitArr = { 1: -1, 2: -1, 3: -1, 4: -1, 5: -1, 6: -1, 7: -1, 8: -1, 9: -1, };
+    var firstGuess = gameMaster.random3Digit();
+    console.log('first guess', firstGuess);
+    res.json({ cpuGuess: firstGuess });
+});
+
+//subsequent guesses based on bulls and cows entered by user
+router.post('/cpuGuess', (req, res) => {
+    if ((global.availableDigits / 100) > 1) {
+        var SubsequentGuess = gamePlayer.makeGuess(req.body.cpuGuess, req.body.bull, req.body.cow);
+        console.log('next guess', SubsequentGuess);
+        res.json({ cpuGuess: SubsequentGuess });
+    } else {
+        console.log((global.availableDigits / 100))
+        res.status(400).json({});
+    }
 });
 
 module.exports = router;

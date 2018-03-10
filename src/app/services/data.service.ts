@@ -25,5 +25,15 @@ export class DataService {
     let body = JSON.stringify({ guess: num });
     return this._http.post('/api/check', body, httpOptions);
   }
+  show() {
+    return this._http.get('/api/show');
+  }
+  cpuStartGuess() {
+    return this._http.get('/api/firstGuess');
+  }
+  cpuGuess(g, b, c) {
+    let body = JSON.stringify({ cpuGuess: g, bull: b, cow: c });
+    return this._http.post('/api/cpuGuess', body, httpOptions);
+  }
 
 }
