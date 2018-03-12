@@ -70,7 +70,6 @@ router.get('/show', (req, res) => {
 router.get('/firstGuess', (req, res) => {
     global.availableDigits = '123456789';
     global.usedNumbers = [];
-    global.fixedDigitArr = { 1: -1, 2: -1, 3: -1, 4: -1, 5: -1, 6: -1, 7: -1, 8: -1, 9: -1, };
     var firstGuess = gameMaster.random3Digit();
     console.log('first guess', firstGuess);
     res.json({ cpuGuess: firstGuess });
@@ -78,6 +77,7 @@ router.get('/firstGuess', (req, res) => {
 
 //subsequent guesses based on bulls and cows entered by user
 router.post('/cpuGuess', (req, res) => {
+    console.log(req.body, global.usedNumbers)
     if ((global.availableDigits / 100) > 1) {
         var SubsequentGuess = gamePlayer.makeGuess(req.body.cpuGuess, req.body.bull, req.body.cow);
         console.log('next guess', SubsequentGuess);
