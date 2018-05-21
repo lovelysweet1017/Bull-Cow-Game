@@ -1,21 +1,11 @@
-# MEAN Starter, Angular 5 + Angular CLI
-MEAN stack starter pack with Angular 5, made with Angular CLI 
+##[wiki](https://en.wikipedia.org/wiki/Bulls_and_Cows)
 
-## PERFECT FOR NEWBIES
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
-This makes it fairly simple to use and understand by people who don't have a great understanding in Angular
+## [Live Demo](https://warm-basin-35606.herokuapp.com/)
 
 ## How to start
 - Clone the repository
 - Run ```npm install``` to install the needed dependencies
-- Run ```ng build``` to build the project
-- Run ```node server``` to start the server
-
-## How to make changes
-- Edit the part of the code
-- Run ```ng build``` again to build the project with the changes
-- If the project gets recognition I might write a script to automate this
+- Run ```ng start``` to build and start the server
 
 ## Project Structure
 - dist folder - that is where all the client-side code is put when running ```ng build```, used in order to be accessed from the server
