@@ -1,4 +1,4 @@
-##[wiki](https://en.wikipedia.org/wiki/Bulls_and_Cows)
+## [wiki](https://en.wikipedia.org/wiki/Bulls_and_Cows)
 
 ## [Live Demo](https://warm-basin-35606.herokuapp.com/)
 
