@@ -22,8 +22,8 @@ export class AppComponent {
   bull: Number;
   cow: Number;
   constructor(private _dataService: DataService, private alertService: AlertService) {
-    this._dataService.getUsers()
-      .subscribe(res => this.users = res);
+    // this._dataService.getUsers()
+    //   .subscribe(res => this.users = res);
   }
   myFunc() {
     this.playMaster = false;
